@@ -1,21 +1,23 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 
-# Set your OpenAI API key here
-openai.api_key = "YOUR_OPENAI_API_KEY"
+client = OpenAI()
 
-# GPT-3 completion function
-def ask_gpt3(prompt):
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=100,
-        stop=None,
+#  GPT-3 completion function
+def ask_gpt(user_input):
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a music expert giving in-depth explanations."},
+        {"role": "user", "content": user_input}
+    ]
     )
-    return response.choices[0].text.strip()
+    return completion.choices[0].message.content
+
 
 # Streamlit app
 def main():
+
     st.title("Music Chat with ChatGPT")
 
     st.write("Welcome! Ask me anything about music.")
@@ -25,7 +27,7 @@ def main():
     if st.button("Ask"):
         if user_input:
             with st.spinner("Thinking..."):
-                response = ask_gpt3(user_input)
+                response = ask_gpt(user_input)
             st.write("ChatGPT:", response)
         else:
             st.warning("Please enter a question.")
