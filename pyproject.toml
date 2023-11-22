@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "streamlit-chatpgt"
+version = "0.1.0"
+description = "a chat app that gives a description of your favorite songs"
+authors = ["Noé Fischer <noe.fischer@gmail.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+streamlit = "^1.28.2"
+openai = "^1.3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
